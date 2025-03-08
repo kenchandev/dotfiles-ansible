@@ -1,0 +1,25 @@
+{
+  "breadcrumbs.enabled": true,
+  "editor.fontFamily": "'FiraCode Nerd Font', Menlo, Monaco, monospace",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.625,
+  "editor.tabSize": 2,
+  "explorer.compactFolders": false,
+  "explorer.decorations.badges": false,
+  "extensions.verifySignature": false,
+  "git.decorations.enabled": false,
+  "vim.startInInsertMode": true,
+  "vsicons.presets.hideExplorerArrows": true,
+  "workbench.colorTheme": "One Dark Pro Night Flat",
+  "workbench.editor.customLabels.patterns": {
+    "**/routes/**/+page.svelte": "${dirname(1)}/${dirname}",
+    "**/routes/**/+page.server.ts": "/${dirname} {server}",
+    "**/app/**/page.tsx": "${dirname}.${extname}",
+    "**/app/**/layout.tsx": "${dirname}/layout.${extname}"
+  },
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.tips.enabled": false,
+  "workbench.tree.enableStickyScroll": false,
+  "workbench.tree.indent": 20,
+  "workbench.tree.renderIndentGuides": "none"
+}

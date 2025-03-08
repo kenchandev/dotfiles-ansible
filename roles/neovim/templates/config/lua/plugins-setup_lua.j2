@@ -1,0 +1,57 @@
+{%- set plugin_map = {} -%}
+
+{%- macro process_plugins(plugins_list, current_depth) -%}
+  {%- for plugin in plugins_list -%}
+    {%- if plugin.name not in plugin_map or current_depth > plugin_map[plugin.name]['depth'] -%}
+      {%- set _ = plugin_map.update({
+        plugin.name: {
+          "depth": current_depth,
+          "options": plugin.options | default([])
+        }
+      }) -%}
+    {%- endif -%}
+
+    {%- if plugin.dependencies is defined -%}
+      {{- process_plugins(plugin.dependencies, current_depth + 1) -}}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endmacro -%}
+
+{{- process_plugins(neovim.plugins, 1) -}}
+
+{%- set plugins_by_depth = {} -%}
+{%- for plugin_name, plugin_data in plugin_map.items() -%}
+  {%- set depth = plugin_data.depth -%}
+  {%- if depth not in plugins_by_depth -%}
+    {%- set _ = plugins_by_depth.update({
+      depth: []
+    }) -%}
+  {%- endif -%}
+  {%- set _ = plugins_by_depth[depth].append({
+    "name": plugin_name,
+    "options": plugin_data.options
+  }) -%}
+{%- endfor -%}
+
+vim.cmd([[
+  augroup initvim
+  autocmd!
+  autocmd initvim BufWritePost ~/.config/nvim/init.lua source %
+  augroup end
+]])
+
+local Plug = vim.fn["plug#"]
+
+vim.call("plug#begin")
+{% for depth in range(plugin_map|length, 0, -1) -%}
+  {%- if depth in plugins_by_depth -%}
+    {%- for plugin in plugins_by_depth[depth]|sort(attribute="name") %}
+{% if plugin.options|length > 0 %}
+Plug("{{ plugin.name }}", { {% for opt in plugin.options %}["{{ opt.key }}"] = "{{ opt.value }}"{% if not loop.last %}, {% endif %}{% endfor %} })
+{% else %}
+Plug("{{ plugin.name }}")
+{% endif %}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor %}
+vim.call("plug#end")

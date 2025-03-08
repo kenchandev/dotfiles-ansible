@@ -1,0 +1,11 @@
+[local]
+localhost
+
+[local:vars]
+ansible_connection=local
+
+[py3_hosts]
+darwin
+
+[py3_hosts:vars]
+ansible_python_interpreter=$HOME/.venv/bin/python3

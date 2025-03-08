@@ -1,0 +1,62 @@
+- name: Check if Oh My Zsh configuration exists.
+  ansible.builtin.stat:
+    path: $HOME/.oh-my-zsh
+  register: oh_my_zsh_stats
+  tags:
+    - install
+    - zsh
+
+- name: Install Oh My Zsh.
+  ansible.builtin.command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  when: oh_my_zsh_stats.stat.exists == False
+  tags:
+    - install
+    - zsh
+
+- name: Install Oh My Zsh plugins.
+  ansible.builtin.git:
+    repo: "{{ item.repo_url }}"
+    dest: "$HOME/.oh-my-zsh/plugins/{{ item.name }}"
+  loop: "{{ zsh.misc_plugins }}"
+  tags:
+    - install
+    - zsh
+
+- name: Copy Zsh profile file to user's home directory.
+  ansible.builtin.copy:
+    src: ../templates/.zprofile
+    dest: $HOME/.zprofile
+  tags:
+    - install
+    - zsh
+
+- name: Copy Zsh environment file to user's home directory.
+  ansible.builtin.copy:
+    src: ../templates/.zshenv
+    dest: $HOME/.zshenv
+  tags:
+    - install
+    - zsh
+
+- name: Apply Zsh configuration.
+  ansible.builtin.template:
+    src: "../templates/.zshrc.j2"
+    dest: "$HOME/.zshrc"
+  tags:
+    - install
+    - zsh
+
+- name: Ensure Zsh functions exist.
+  ansible.builtin.file:
+    path: $HOME/.zfunc
+    state: directory
+  tags:
+    - install
+    - zsh
+
+- name: Generate completion scripts for Rust.
+  ansible.builtin.shell: $HOME/.cargo/bin/rustup completions zsh > $HOME/.zfunc/_rustup
+  tags:
+    - install
+    - rust
+    - zsh

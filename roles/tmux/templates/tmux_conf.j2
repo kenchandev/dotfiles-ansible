@@ -1,0 +1,39 @@
+set -g mouse on
+
+set -g default-terminal "screen-256color"
+
+unbind %
+bind | split-window -h
+
+unbind '"'
+bind - split-window -v
+
+unbind r
+bind r source-file ~/tmux.conf
+
+bind -r j select-pane -D
+bind -r k select-pane -U
+bind -r l select-pane -R
+bind -r h select-pane -L
+
+bind -r s resize-pane -D 5
+bind -r w resize-pane -U 5
+bind -r d resize-pane -R 5
+bind -r a resize-pane -L 5
+
+set-window-option -g mode-keys vi
+
+bind-key -T copy-mode-vi "v" send -X begin-selection
+bind-key -T copy-mode-vi "y" send -X copy-selection
+
+unbind -T copy-mode-vi MouseDragEnd1Pane
+
+set -sg escape-time 10
+
+{% for plugin in tmux.plugins %}
+set -g @plugin "{{ plugin }}"
+{% endfor %}
+
+set -g @themepack "{{ tmux.themepack }}"
+
+run "~/.tmux/plugins/tpm/tpm"

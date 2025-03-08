@@ -1,0 +1,18 @@
+- name: Check if Cargo exists.
+  ansible.builtin.stat:
+    path: $HOME/.cargo
+  register: cargo_stats
+  tags:
+    - install
+    - rust
+
+- name: Install Rust compiler (rustc) and Rust package manager (cargo).
+  ansible.builtin.expect:
+    command: "{{ homebrew.bin_dir }}/rustup-init"
+    responses:
+      ">": "1"
+      "Press the Enter key to continue.": ""
+  when: cargo_stats.stat.exists == False
+  tags:
+    - install
+    - rust

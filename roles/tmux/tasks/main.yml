@@ -1,0 +1,7 @@
+- name: Apply tmux configuration.
+  ansible.builtin.template:
+    src: ../templates/tmux_conf.j2
+    dest: $HOME/.tmux.conf
+  tags:
+    - install
+    - tmux

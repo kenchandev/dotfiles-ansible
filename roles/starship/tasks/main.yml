@@ -1,0 +1,7 @@
+- name: Copy Starship configuration to user's configuration directory.
+  ansible.builtin.copy:
+    src: ../templates/starship.toml
+    dest: $HOME/.config/starship.toml
+  tags:
+    - install
+    - starship

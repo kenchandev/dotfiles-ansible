@@ -1,0 +1,22 @@
+- name: Ensure VSCodium configuration exists.
+  ansible.builtin.file:
+    path: "$HOME/Library/Application\ Support/VSCodium/User"
+    state: directory
+  tags:
+    - install
+    - vscodium
+
+- name: Copy VSCodium settings to VSCodium user settings directory.
+  ansible.builtin.copy:
+    src: ../templates/settings.json
+    dest: "$HOME/Library/Application\ Support/VSCodium/User/settings.json"
+  tags:
+    - install
+    - vscodium
+
+- name: Install VSCodium extensions.
+  ansible.builtin.command: "{{ homebrew.bin_dir }}/codium --install-extension {{ item }}"
+  loop: "{{ vscode.extensions }}"
+  tags:
+    - install
+    - vscodium

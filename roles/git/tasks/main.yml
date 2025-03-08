@@ -1,0 +1,30 @@
+- name: Set e-mail address for git.
+  community.general.git_config:
+    name: user.email
+    scope: global
+    value: "{{ github.email_address }}"
+  tags:
+    - git
+
+- name: Set username for git.
+  community.general.git_config:
+    name: user.name
+    scope: global
+    value: "{{ github.username }}"
+  tags:
+    - git
+
+- name: Install git-lfs.
+  ansible.builtin.command: "{{ homebrew.bin_dir }}/git-lfs install"
+  tags:
+    - git
+
+- name: Set diff-so-fancy for all git diff output.
+  ansible.builtin.shell: git config --global core.pager "diff-so-fancy | less --tabs=2 -RFX"
+  tags:
+    - git
+
+- name: Set default branch to main.
+  ansible.builtin.command: git config --global init.defaultBranch main
+  tags:
+    - git

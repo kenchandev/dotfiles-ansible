@@ -1,0 +1,5 @@
+- name: Install latest Node.js LTS release.
+  ansible.builtin.command: "{{ homebrew.bin_dir }}/volta install node"
+  tags:
+    - install
+    - node

@@ -1,0 +1,23 @@
+- name: Ensure Kitty configuration exists.
+  ansible.builtin.file:
+    path: $HOME/.config/kitty
+    state: directory
+  tags:
+    - install
+    - kitty
+
+- name: Copy Kitty theme file to user's Kitty configuration directory.
+  ansible.builtin.copy:
+    src: ../templates/theme.conf
+    dest: $HOME/.config/kitty/theme.conf
+  tags:
+    - install
+    - kitty
+
+- name: Copy Kitty configuration file to user's Kitty configuration directory.
+  ansible.builtin.copy:
+    src: ../templates/kitty.conf
+    dest: $HOME/.config/kitty/kitty.conf
+  tags:
+    - install
+    - kitty

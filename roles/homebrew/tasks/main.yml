@@ -1,0 +1,48 @@
+- name: Update Homebrew.
+  community.general.homebrew:
+    update_homebrew: true
+  tags:
+    - update-upgrade
+
+- name: Install Homebrew taps.
+  community.general.homebrew_tap:
+    name: "{{ item }}"
+  loop: "{{ homebrew.taps }}"
+  tags:
+    - install
+
+- name: Install Homebrew packages.
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: "present"
+  loop: "{{ homebrew.packages }}"
+  tags:
+    - install
+
+- name: Install Homebrew casks (applications).
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: "present"
+    install_options: "appdir=/Applications"
+  loop: "{{ homebrew.cask_applications }}"
+  tags:
+    - install
+
+- name: Install Homebrew casks (fonts).
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+  loop: "{{ homebrew.cask_fonts }}"
+  tags:
+    - install
+
+- name: Upgrade Homebrew packages.
+  community.general.homebrew:
+    upgrade_all: true
+  tags:
+    - update-upgrade
+
+- name: Upgrade Homebrew casks.
+  community.general.homebrew_cask:
+    upgrade_all: true
+  tags:
+    - update-upgrade

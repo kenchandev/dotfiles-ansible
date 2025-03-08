@@ -1,0 +1,94 @@
+- name: Ensure Neovim configuration exists.
+  ansible.builtin.file:
+    path: $HOME/.config/nvim
+    state: directory
+    recurse: yes
+  tags:
+    - install
+    - neovim
+
+- name: Check if vim-plug is installed.
+  ansible.builtin.stat:
+    path: $HOME/.local/share/nvim/site/autoload/plug.vim
+  register: vim_plug
+  tags:
+    - install
+    - neovim
+
+- name: Download and install vim-plug if not already installed.
+  ansible.builtin.shell: sh -c "curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  when: vim_plug.stat.exists == False
+  tags:
+    - install
+    - neovim
+
+- name: Ensure the user's Neovim configuration directory matches the `templates/config` directory structure.
+  ansible.builtin.file:
+    path: "$HOME/.config/nvim/{{ item.path }}"
+    state: directory
+  with_community.general.filetree: ../templates/config
+  when: item.state == "directory"
+  tags:
+    - install
+    - neovim
+
+- name: Find all Lua files in the `templates/config` directory.
+  ansible.builtin.find:
+    paths: "{{ role_path }}/templates/config"
+    patterns: "*.lua"
+    recurse: yes
+  register: lua_files
+  tags:
+    - install
+    - neovim
+
+- name: Copy Lua files to user's Neovim configuration directory.
+  ansible.builtin.copy:
+    src: "{{ item.path }}"
+    dest: "$HOME/.config/nvim/{{ item.path | relpath(role_path + '/templates/config') }}"
+    remote_src: yes
+  with_items: "{{ lua_files.files }}"
+  tags:
+    - install
+    - neovim
+
+- name: Find Lua files for configuring Neovim plugins in the `templates/config/lua/plugins` directory.
+  ansible.builtin.find:
+    paths: "{{ role_path }}/templates/config/lua/plugins"
+    patterns: "*.lua"
+    recurse: yes
+  register: configured_plugin_lua_files
+  tags:
+    - install
+    - neovim
+
+- name: Populate Jinja template for Neovim initialization file with configured Neovim plugins.
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/config/init_lua.j2"
+    dest: $HOME/.config/nvim/init.lua
+  tags:
+    - install
+    - neovim
+
+- name: Populate Jinja template for Neovim plugin installation file.
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/config/lua/plugins-setup_lua.j2"
+    dest: $HOME/.config/nvim/lua/plugins-setup.lua
+  tags:
+    - install
+    - neovim
+
+- name: Ensure Neovim plugins directory exists.
+  ansible.builtin.file:
+    path: $HOME/.config/nvim/lua/plugins
+    state: directory
+    recurse: yes
+  tags:
+    - install
+    - neovim
+
+- name: Install Plugins headlessly.
+  ansible.builtin.command: "{{ homebrew.bin_dir }}/nvim --headless +PlugInstall +qall"
+  tags:
+    - install
+    - neovim

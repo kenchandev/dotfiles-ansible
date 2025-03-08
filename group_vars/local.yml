@@ -1,0 +1,181 @@
+env_file: "{{ lookup('file', '.env') }}"
+
+name: "{{ (env_file | regex_search('NAME=([^\n]*)', '\\1'))[0] }}"
+
+github:
+  username: "{{ (env_file | regex_search('GITHUB_USERNAME=([^\n]*)', '\\1'))[0] }}"
+  email_address: "{{ (env_file | regex_search('GITHUB_EMAIL_ADDRESS=([^\n]*)', '\\1'))[0] }}"
+  ssh_key_passphrase: "{{ (env_file | regex_search('GITHUB_SSH_KEY_PASSPHRASE=([^\n]*)', '\\1'))[0] }}"
+
+homebrew:
+  bin_dir: /opt/homebrew/bin
+  taps:
+    - oven-sh/bun
+  packages:
+    - asciinema
+    - awscli
+    - certbot
+    - cloudflared
+    - diff-so-fancy
+    - docker
+    - docker-compose
+    - ffmpeg
+    - fzf # For zoxide completions and interactive selection.
+    - gh
+    - git
+    - git-lfs
+    - gnu-sed
+    - kubernetes-cli
+    - make
+    - mas
+    - neovim
+    - orbstack
+    - oven-sh/bun/bun
+    - pnpm
+    - protobuf
+    - ripgrep # For telescope.nvim live grep feature.
+    - rustup
+    - starship
+    - thefuck # 😂
+    - tmux
+    - volta
+    - wrk
+    - zoxide
+    - zsh
+  cask_applications:
+    - airbuddy
+    - blender
+    - cursor
+    - discord
+    - dropbox
+    - figma
+    - firefox
+    - framer
+    - google-chrome
+    - iina
+    - kitty
+    - notion
+    - postman
+    - sketch
+    - slack
+    - via
+    - vscodium
+  cask_fonts:
+    - font-fira-code-nerd-font
+    - font-fira-code
+
+mas_apps:
+  - id: 571213070
+    name: DaVinci Resolve
+  - id: 360593530
+    name: Notability
+  - id: 497799835
+    name: Xcode
+
+neovim:
+  plugins:
+    - name: akinsho/bufferline.nvim
+      dependencies:
+        - name: nvim-tree/nvim-web-devicons
+    - name: christoomey/vim-tmux-navigator
+    - name: editorconfig/editorconfig-vim
+    - name: edluffy/hologram.nvim
+    - name: hrsh7th/nvim-cmp
+      dependencies:
+        - name: hrsh7th/cmp-buffer
+        - name: hrsh7th/cmp-cmdline
+        - name: hrsh7th/cmp-nvim-lsp
+        - name: hrsh7th/cmp-path
+        - name: neovim/nvim-lspconfig
+        - name: onsails/lspkind.nvim
+        - name: saadparwaiz1/cmp_luasnip
+          dependencies:
+            - name: L3MON4D3/LuaSnip
+              dependencies:
+                - name: rafamadriz/friendly-snippets
+              options:
+                - key: version
+                  value: v2.*
+                - key: run
+                  value: make install_jsregexp
+    - name: mhartington/formatter.nvim
+    - name: navarasu/onedark.nvim
+    - name: neoclide/coc.nvim
+      options:
+        - key: branch
+          value: release
+    - name: numToStr/Comment.nvim
+    - name: mfussenegger/nvim-lint
+    - name: nvim-lualine/lualine.nvim
+      dependencies:
+        - name: nvim-tree/nvim-web-devicons
+    - name: nvim-telescope/telescope.nvim
+      dependencies:
+        - name: nvim-lua/plenary.nvim
+      options:
+        - key: branch
+          value: 0.1.x
+    - name: nvim-telescope/telescope-fzf-native.nvim
+      options:
+        - key: do
+          value: make
+    - name: nvim-tree/nvim-tree.lua
+      dependencies:
+        - name: nvim-tree/nvim-web-devicons
+    - name: szw/vim-maximizer
+    - name: tpope/vim-surround
+    - name: vim-scripts/ReplaceWithRegister
+    - name: WhoIsSethDaniel/mason-tool-installer.nvim
+      dependencies:
+        - name: williamboman/mason-lspconfig.nvim
+          dependencies:
+            - name: neovim/nvim-lspconfig
+            - name: williamboman/mason.nvim
+        - name: williamboman/mason-null-ls.nvim
+          dependencies:
+            - name: nvimtools/none-ls.nvim
+            - name: williamboman/mason.nvim
+        - name: jay-babu/mason-nvim-dap.nvim
+          dependencies:
+            - name: mfussenegger/nvim-dap
+            - name: williamboman/mason.nvim
+    - name: windwp/nvim-autopairs
+
+tmux:
+  plugins:
+    - christoomey/vim-tmux-navigator
+    - jimeh/tmux-themepack
+    - tmux-plugins/tpm
+  themepack: powerline/default/cyan
+
+vscode:
+  extensions:
+    - bradlc.vscode-tailwindcss
+    - dbaeumer.vscode-eslint
+    - dunstontc.viml
+    - EditorConfig.EditorConfig
+    - esbenp.prettier-vscode
+    - GrapeCity.gc-excelviewer
+    - GraphQL.vscode-graphql
+    - mgmcdermott.vscode-language-babel
+    - mikestead.dotenv
+    - oouo-diogo-perdigao.docthis
+    - rust-lang.rust-analyzer
+    - samuelcolvin.jinjahtml
+    - serayuzgur.crates
+    - styled-components.vscode-styled-components
+    - svelte.svelte-vscode
+    - Syler.sass-indented
+    - tamasfe.even-better-toml
+    - vadimcn.vscode-lldb
+    - vscode-icons-team.vscode-icons
+    - zhuangtongfa.Material-theme
+
+zsh:
+  oh_my_zsh_plugins:
+    - git
+  misc_plugins:
+    - name: zsh-syntax-highlighting
+      repo_url: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    - name: zsh-autosuggestions
+      repo_url: https://github.com/zsh-users/zsh-autosuggestions.git

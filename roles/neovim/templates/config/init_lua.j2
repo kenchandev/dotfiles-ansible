@@ -1,0 +1,128 @@
+--[[
+
+██████╗  █████╗ ███████╗███████╗     ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ ██╗   ██╗██████╗  █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
+██╔══██╗██╔══██╗██╔════╝██╔════╝    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝ ██║   ██║██╔══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
+██████╔╝███████║███████╗█████╗      ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗██║   ██║██████╔╝███████║   ██║   ██║██║   ██║██╔██╗ ██║
+██╔══██╗██╔══██║╚════██║██╔══╝      ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║██║   ██║██╔══██╗██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
+██████╔╝██║  ██║███████║███████╗    ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝╚██████╔╝██║  ██║██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
+╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+
+--]]
+
+local opt = vim.opt
+
+opt.relativenumber = true
+opt.number = true
+
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.expandtab = true
+opt.autoindent = true
+
+opt.wrap = true
+
+opt.ignorecase = true
+opt.smartcase = true
+
+opt.cursorline = true
+
+opt.backspace = "indent,eol,start"
+
+opt.clipboard:append("unnamedplus")
+
+opt.splitright = true
+opt.splitbelow = true
+
+opt.iskeyword:append("-")
+
+--[[
+
+██████╗ ██╗     ██╗   ██╗ ██████╗ ██╗███╗   ██╗     ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ ██╗   ██╗██████╗  █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
+██╔══██╗██║     ██║   ██║██╔════╝ ██║████╗  ██║    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝ ██║   ██║██╔══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
+██████╔╝██║     ██║   ██║██║  ███╗██║██╔██╗ ██║    ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗██║   ██║██████╔╝███████║   ██║   ██║██║   ██║██╔██╗ ██║
+██╔═══╝ ██║     ██║   ██║██║   ██║██║██║╚██╗██║    ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║██║   ██║██╔══██╗██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
+██║     ███████╗╚██████╔╝╚██████╔╝██║██║ ╚████║    ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝╚██████╔╝██║  ██║██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
+╚═╝     ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+
+--]]
+
+require("plugins-setup")
+{% for file in configured_plugin_lua_files.files %}
+require("plugins.{{ file.path | basename | regex_replace('\\.[^.]*$', '') }}")
+{% endfor %}
+
+--[[
+
+██╗  ██╗███████╗██╗   ██╗███╗   ███╗ █████╗ ██████╗      ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ ██╗   ██╗██████╗  █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
+██║ ██╔╝██╔════╝╚██╗ ██╔╝████╗ ████║██╔══██╗██╔══██╗    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝ ██║   ██║██╔══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
+█████╔╝ █████╗   ╚████╔╝ ██╔████╔██║███████║██████╔╝    ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗██║   ██║██████╔╝███████║   ██║   ██║██║   ██║██╔██╗ ██║
+██╔═██╗ ██╔══╝    ╚██╔╝  ██║╚██╔╝██║██╔══██║██╔═══╝     ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║██║   ██║██╔══██╗██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
+██║  ██╗███████╗   ██║   ██║ ╚═╝ ██║██║  ██║██║         ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝╚██████╔╝██║  ██║██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
+╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝          ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+
+--]]
+
+vim.g.mapleader = " "
+
+local keymap = vim.keymap
+
+keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
+
+keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+
+keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" })
+keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" })
+
+keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
+keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
+keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
+keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
+
+function CloseAllBuffersExceptNvimTree()
+  if require("nvim-tree.view").is_visible() then
+    vim.cmd("tabonly | %bd! | NvimTreeOpen")
+  else
+    vim.cmd("%bd!")
+  end
+end
+
+keymap.set("n", "<leader>1", "<cmd>BufferLineGoToBuffer 1<CR>", { desc = "Switch current buffer to buffer #1" })
+keymap.set("n", "<leader>2", "<cmd>BufferLineGoToBuffer 2<CR>", { desc = "Switch current buffer to buffer #2" })
+keymap.set("n", "<leader>3", "<cmd>BufferLineGoToBuffer 3<CR>", { desc = "Switch current buffer to buffer #3" })
+keymap.set("n", "<leader>4", "<cmd>BufferLineGoToBuffer 4<CR>", { desc = "Switch current buffer to buffer #4" })
+keymap.set("n", "<leader>5", "<cmd>BufferLineGoToBuffer 5<CR>", { desc = "Switch current buffer to buffer #5" })
+keymap.set("n", "<leader>6", "<cmd>BufferLineGoToBuffer 6<CR>", { desc = "Switch current buffer to buffer #6" })
+keymap.set("n", "<leader>7", "<cmd>BufferLineGoToBuffer 7<CR>", { desc = "Switch current buffer to buffer #7" })
+keymap.set("n", "<leader>8", "<cmd>BufferLineGoToBuffer 8<CR>", { desc = "Switch current buffer to buffer #8" })
+keymap.set("n", "<leader>9", "<cmd>BufferLineGoToBuffer 9<CR>", { desc = "Switch current buffer to buffer #9" })
+keymap.set("n", "<leader>$", "<cmd>BufferLineGoToBuffer -1<CR>", { desc = "Switch current buffer to the last visible buffer" })
+keymap.set("n", "<leader>]", "<cmd>BufferLineCycleNext<CR>", { desc = "Switch current buffer to next buffer (right)" })
+keymap.set("n", "<leader>[", "<cmd>BufferLineCyclePrev<CR>", { desc = "Switch current buffer to previous buffer (left)" })
+keymap.set("n", "<leader>c", function()
+  local buffer_id = vim.fn.bufnr()
+  vim.cmd "BufferLineCyclePrev"
+  vim.cmd("bdelete " ..buffer_id)
+end, { desc = "Close current buffer and go to previous buffer" })
+keymap.set("n", "<leader>C", function()
+  local buffer_id = vim.fn.bufnr()
+  vim.cmd "BufferLineCycleNext"
+  vim.cmd("bdelete " ..buffer_id)
+end, { desc = "Close current buffer and go to next buffer" })
+keymap.set("n", "<leader>qb", ":lua CloseAllBuffersExceptNvimTree()<CR>", { desc = "Close all buffers" })
+
+keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Fuzzy find files in cwd" })
+keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<CR>", { desc = "Fuzzy find recent files" })
+keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Find string in cwd" })
+keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<CR>", { desc = "Find string under cursor in cwd" })
+keymap.set("n", "<leader>fx", function()
+  vim.cmd("wa")
+  CloseAllBuffersExceptNvimTree()
+end, { desc= "Save all changes from live grep replace all" })
+
+keymap.set("n", "<leader><CR>", "m`o<Esc>``j", { desc = "Add a newline below the current line and move the cursor to the newline" })
+keymap.set("n", "<leader><S-CR>", "m`O<Esc>``k", { desc = "Add a newline above the current line and move the cursor to the newline" })
+
+keymap.set("n", "<leader>j", "<cmd>m+1<CR>", { desc = "Swap the current line with the next line" })
+keymap.set("n", "<leader>k", "<cmd>m-2<CR>", { desc = "Swap the current line with the previous line" })
+
+keymap.set("n", "<leader>a", "ggVG", { desc = "Select all in current buffer" })

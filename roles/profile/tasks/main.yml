@@ -1,0 +1,7 @@
+- name: Copy user profile file to user's home directory.
+  ansible.builtin.copy:
+    src: ../templates/.profile
+    dest: $HOME/.profile
+  tags:
+    - install
+    - dotfiles

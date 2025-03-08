@@ -1,0 +1,23 @@
+- name: Ensure Cursor configuration exists.
+  ansible.builtin.file:
+    path: "$HOME/Library/Application\ Support/Cursor/User"
+    state: directory
+  tags:
+    - install
+    - cursor
+
+- name: Copy Cursor settings to Cursor user settings directory.
+  ansible.builtin.copy:
+    src: ../templates/settings.json
+    dest: "$HOME/Library/Application\ Support/Cursor/User/settings.json"
+  tags:
+    - install
+    - cursor
+
+# Without { "extensions.verifySignature": false } in `settings.json`, extensions fail to be installed due to the following error: "Signature verification was not executed."
+- name: Install Cursor extensions.
+  ansible.builtin.command: "{{ homebrew.bin_dir }}/cursor --install-extension {{ item }}"
+  loop: "{{ vscode.extensions }}"
+  tags:
+    - install
+    - cursor

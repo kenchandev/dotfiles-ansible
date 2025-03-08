@@ -1,0 +1,8 @@
+- name: Install Mac App Store applications.
+  ansible.builtin.command: "{{ homebrew.bin_dir }}/mas install {{ item.id }}"
+  args:
+    creates: "/Applications/{{ item.name }}.app"
+  loop: "{{ mas_apps }}"
+  tags:
+    - install
+    - mas
