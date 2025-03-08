@@ -23,19 +23,19 @@ This repository contains my opinionated macOS dotfiles. With one single command,
 
 5. (Optional) Since several of the tools/utilities executed by the `bin/bootstrap.sh` script require elevated privileges, the `bin/bootstrap.sh` script will occassionally prompt you for your password as it runs. For a truly non-interactive experience (i.e., only entering your password just once when `bin/bootstrap.sh` begins execution and allowing the `bin/bootstrap.sh` script to run uninterrupted), you can run `sudo visudo` and add the following line to the sudoers file: 
 
-  ```
-  Defaults        timestamp_timeout = 180
-  ```
+    ```
+    Defaults        timestamp_timeout = 180
+    ```
   
-  `timestamp_timeout` sets the sudo credential timeout to 180 minutes (3 hours). An extended timeout means you will only need to enter your password just once when `bin/bootstrap.sh` begins execution. This is particularly helpful when installing Xcode and other large packages that require significant download and installation time.
+    `timestamp_timeout` sets the sudo credential timeout to 180 minutes (3 hours). An extended timeout means you will only need to enter your password just once when `bin/bootstrap.sh` begins execution. This is particularly helpful when installing Xcode and other large packages that require significant download and installation time.
 
 6. Within the root of this project directory, run the `bin/bootstrap.sh` script.
 
-  ```shell
-  $ sh bin/bootstrap.sh
-  ```
+    ```shell
+    $ sh bin/bootstrap.sh
+    ```
 
-  Feel free to walk away from your machine as the `bin/bootstrap.sh` script fully provisions your machine.
+Feel free to walk away from your machine as the `bin/bootstrap.sh` script fully provisions your machine.
 
 ## Overriding Defaults
 
