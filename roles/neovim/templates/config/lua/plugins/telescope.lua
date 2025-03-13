@@ -15,6 +15,11 @@ if telescope and telescope_actions then
           ["<C-q>"] = telescope_actions.send_selected_to_qflist + telescope_actions.open_qflist
         }
       }
+    },
+    pickers = {
+      find_files = {
+        hidden = true
+      }
     }
   })
 
