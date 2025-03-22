@@ -56,7 +56,15 @@ if lspconfig and cmp_nvim_lsp then
 
   lspconfig["cssls"].setup({
     capabilities = capabilities,
-    on_attach = on_attach
+    on_attach = on_attach,
+    settings = {
+      css = {
+        validate = true,
+        lint = {
+          unknownAtRules = "ignore"
+        }
+      }
+    }
   })
 
   lspconfig["graphql"].setup({
@@ -104,7 +112,15 @@ if lspconfig and cmp_nvim_lsp then
 
   lspconfig["tailwindcss"].setup({
     capabilities = capabilities,
-    on_attach = on_attach
+    on_attach = on_attach,
+    settings = {
+      tailwindcss = {
+        validate = true,
+        lint = {
+          invalidApply = false
+        }
+      }
+    }
   })
 
   lspconfig["ts_ls"].setup({
