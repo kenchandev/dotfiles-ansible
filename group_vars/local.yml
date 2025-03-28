@@ -45,6 +45,7 @@ homebrew:
   cask_applications:
     - airbuddy
     - blender
+    - claude
     - cursor
     - discord
     - dropbox
