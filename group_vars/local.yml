@@ -29,7 +29,6 @@ homebrew:
     - make
     - mas
     - neovim
-    - orbstack
     - oven-sh/bun/bun
     - pnpm
     - protobuf
@@ -56,6 +55,7 @@ homebrew:
     - iina
     - kitty
     - notion
+    - orbstack
     - postman
     - sketch
     - slack

@@ -1,3 +1,10 @@
+- name: Ensure user-level applications directory exists.
+  ansible.builtin.file:
+    path: $HOME/Applications
+    state: directory
+  tags:
+    - install
+
 - name: Update Homebrew.
   community.general.homebrew:
     update_homebrew: true
@@ -23,7 +30,7 @@
   community.general.homebrew_cask:
     name: "{{ item }}"
     state: "present"
-    install_options: "appdir=/Applications"
+    install_options: "appdir=~/Applications"
   loop: "{{ homebrew.cask_applications }}"
   tags:
     - install
