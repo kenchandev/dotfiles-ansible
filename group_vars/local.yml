@@ -38,6 +38,7 @@ homebrew:
     - thefuck # 😂
     - tmux
     - volta
+    - watchman
     - wrk
     - zoxide
     - zsh
