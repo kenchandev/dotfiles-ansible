@@ -2,6 +2,7 @@
   hosts: local
   roles:
     - { role: cursor, tags: ["cursor"] }
+    - { role: fastfetch, tags: ["fastfetch"] }
     - { role: git, tags: ["git"] }
     - { role: homebrew, tags: ["homebrew"] }
     - { role: kitty, tags: ["kitty"] }

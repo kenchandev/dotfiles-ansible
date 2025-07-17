@@ -1,0 +1,23 @@
+- name: Ensure Fastfetch configuration exists.
+  ansible.builtin.file:
+    path: $HOME/.config/fastfetch
+    state: directory
+  tags:
+    - install
+    - fastfetch
+
+- name: Copy ASCII logo to user's Fastfetch configuration directory.
+  ansible.builtin.copy:
+    src: ../templates/ascii.txt
+    dest: $HOME/.config/fastfetch/ascii.txt
+  tags:
+    - install
+    - fastfetch
+
+- name: Copy Fastfetch configuration file to user's Fastfetch configuration directory.
+  ansible.builtin.copy:
+    src: ../templates/config.jsonc
+    dest: $HOME/.config/fastfetch/config.jsonc
+  tags:
+    - install
+    - fastfetch
