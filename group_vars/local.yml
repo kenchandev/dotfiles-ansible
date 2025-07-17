@@ -19,6 +19,7 @@ homebrew:
     - diff-so-fancy
     - docker
     - docker-compose
+    - fastfetch
     - ffmpeg
     - fzf # For zoxide completions and interactive selection.
     - gh
