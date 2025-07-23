@@ -4,6 +4,7 @@ set -e
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd)"
 HOMEBREW_BIN_DIR=/opt/homebrew/bin
+PYTHON_LATEST_STABLE_VERSION=3.13
 
 print_info() {
   printf "\r  [ \033[00;34m...\033[0m ] %s\n" "$1"
@@ -40,36 +41,36 @@ install_homebrew() {
   fi
 }
 
-install_python3() {
+install_uv() {
   install_homebrew
 
-  if ! [[ $(which $HOMEBREW_BIN_DIR/python3) ]]; then
-    printf "[ \033[00;34m...\033[0m ] Installing Python 3...\n"
-    $HOMEBREW_BIN_DIR/brew install python3
+  if ! [[ $(which $HOMEBREW_BIN_DIR/uv) ]]; then
+    printf "[ \033[00;34m...\033[0m ] Installing uv...\n"
+    $HOMEBREW_BIN_DIR/brew install uv
   else
-    printf "[ \033[00;34m...\033[0m ] Python 3 already installed.\n"
+    printf "[ \033[00;34m...\033[0m ] uv already installed.\n"
     return
   fi
 }
 
-install_virtualenv() {
-  install_homebrew
+install_python() {
+  install_uv
 
-  if ! [[ $(which $HOMEBREW_BIN_DIR/virtualenv) ]]; then
-    printf "[ \033[00;34m...\033[0m ] Installing virtualenv...\n"
-    $HOMEBREW_BIN_DIR/brew install virtualenv
+  if ! [[ -f $HOME/.local/bin/python$PYTHON_LATEST_STABLE_VERSION ]]; then
+    uv python install $PYTHON_LATEST_STABLE_VERSION
   else
-    printf "[ \033[00;34m...\033[0m ] virtualenv already installed.\n"
+    printf "[ \033[00;34m...\033[0m ] Latest Python version already installed.\n"
     return
   fi
 }
 
 install_ansible() {
   install_homebrew
+  initialize_venv
 
-  if ! [[ $(which $HOMEBREW_BIN_DIR/ansible) ]]; then
+  if ! [[ -f $HOME/.venv/bin/ansible ]]; then
     printf "[ \033[00;34m...\033[0m ] Installing Ansible...\n"
-    $HOMEBREW_BIN_DIR/brew install ansible
+    $HOMEBREW_BIN_DIR/uv pip install ansible
   else
     printf "[ \033[00;34m...\033[0m ] Ansible already installed.\n"
     return
@@ -78,16 +79,16 @@ install_ansible() {
 
 initialize_ansible_venv() {
   if ! [[ -d $HOME/.venv ]]; then
-    printf "[ \033[00;34m...\033[0m ] Initializing virtual environmnet for Ansible...\n"
-    $HOMEBREW_BIN_DIR/virtualenv -p $HOMEBREW_BIN_DIR/python3 "$HOME"/.venv
+    printf "[ \033[00;34m...\033[0m ] Initializing virtual environment for Ansible...\n"
+    $HOMEBREW_BIN_DIR/uv venv -p $PYTHON_LATEST_STABLE_VERSION $HOME/.venv
   else
     printf "[ \033[00;34m...\033[0m ] Virtual environment for Ansible already initialized.\n"
   fi
 
   # shellcheck source=/dev/null
-  source "$HOME"/.venv/bin/activate
+  source $HOME/.venv/bin/activate
 
-  "$HOME"/.venv/bin/pip3 install pexpect
+  $HOMEBREW_BIN_DIR/uv pip install pexpect
 }
 
 deactivate_ansible_venv() {
@@ -95,8 +96,8 @@ deactivate_ansible_venv() {
 }
 
 run_ansible_playbook() {
-  printf "[ \033[00;34m...\033[0m ] Running Ansible Playbook...\n"
-  $HOMEBREW_BIN_DIR/ansible-galaxy install -r requirements.yml
+  printf "[ \033[00;34m...\033[0m ] Installing collections with Ansible Galaxy...\n"
+  $HOMEBREW_BIN_DIR/uv run ansible-galaxy install -r requirements.yml
 
   # "xcode" is listed first to ensure the Xcode license agreement has been accepted.
   # Homebrew fails to run if the Xcode license agreement has not yet been accepted.
@@ -105,7 +106,7 @@ run_ansible_playbook() {
   for tag in "${tags[@]}"; do
     echo "Running Ansible playbook for tag: $tag"
 
-    if $HOMEBREW_BIN_DIR/ansible-playbook -v -i "${ROOT_DIR}/hosts" "${ROOT_DIR}/local_env.yml" --tags "$tag"; then
+    if $HOMEBREW_BIN_DIR/uv run ansible-playbook -v -i "${ROOT_DIR}/hosts" "${ROOT_DIR}/local_env.yml" --tags "$tag"; then
       echo "Successfully completed playbook for tag: $tag"
     else
       echo "Error running playbook for tag: $tag"
@@ -119,9 +120,9 @@ sudo --validate
 
 install_xcode_cli_tools
 install_homebrew
-install_python3
-install_virtualenv
-install_ansible
+install_uv
+install_python
 initialize_ansible_venv
+install_ansible
 run_ansible_playbook
 deactivate_ansible_venv
