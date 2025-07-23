@@ -33,6 +33,7 @@ homebrew:
     - oven-sh/bun/bun
     - pnpm
     - protobuf
+    - repomix
     - ripgrep # For telescope.nvim live grep feature.
     - rustup
     - starship
