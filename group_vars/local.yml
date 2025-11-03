@@ -48,6 +48,7 @@ homebrew:
     - airbuddy
     - blender
     - claude
+    - claude-code
     - codex
     - cursor
     - discord
@@ -155,6 +156,7 @@ tmux:
 
 vscode:
   extensions:
+    - anthropic.claude-code
     - bradlc.vscode-tailwindcss
     - dbaeumer.vscode-eslint
     - dunstontc.viml
