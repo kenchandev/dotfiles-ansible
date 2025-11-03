@@ -33,6 +33,7 @@ homebrew:
     - oven-sh/bun/bun
     - pnpm
     - protobuf
+    - repomix
     - ripgrep # For telescope.nvim live grep feature.
     - rustup
     - starship
@@ -48,6 +49,7 @@ homebrew:
     - blender
     - claude
     - claude-code
+    - codex
     - cursor
     - discord
     - dropbox
@@ -165,6 +167,7 @@ vscode:
     - mgmcdermott.vscode-language-babel
     - mikestead.dotenv
     - oouo-diogo-perdigao.docthis
+    - openai.chatgpt
     - rust-lang.rust-analyzer
     - samuelcolvin.jinjahtml
     - serayuzgur.crates
