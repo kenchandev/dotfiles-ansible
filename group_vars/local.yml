@@ -37,6 +37,7 @@ homebrew:
     - ripgrep # For telescope.nvim live grep feature.
     - rustup
     - starship
+    - stripe/stripe-cli/stripe
     - thefuck # 😂
     - tmux
     - volta
