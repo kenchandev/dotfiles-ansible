@@ -16,6 +16,7 @@ homebrew:
     - awscli
     - certbot
     - cloudflared
+    - dagger/tap/container-use
     - diff-so-fancy
     - docker
     - docker-compose
