@@ -39,6 +39,7 @@ homebrew:
     - starship
     - thefuck # 😂
     - tmux
+    - uv
     - volta
     - watchman
     - wrk
