@@ -1,4 +1,4 @@
-local safe_require = require("utils").safe_require
+local safe_require = require("utils.module").safe_require
 
 local cmp = safe_require("cmp")
 local lspkind = safe_require("lspkind")

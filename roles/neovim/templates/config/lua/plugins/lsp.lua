@@ -1,4 +1,4 @@
-local safe_require = require("utils").safe_require
+local safe_require = require("utils.module").safe_require
 
 local lspconfig = safe_require("lspconfig")
 local cmp_nvim_lsp = safe_require("cmp_nvim_lsp")
