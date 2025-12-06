@@ -23,6 +23,7 @@ homebrew:
     - fastfetch
     - ffmpeg
     - fzf # For zoxide completions and interactive selection.
+    - gemini-cli
     - gh
     - git
     - git-lfs
@@ -166,6 +167,7 @@ vscode:
     - dunstontc.viml
     - EditorConfig.EditorConfig
     - esbenp.prettier-vscode
+    - google.gemini-cli-vscode-ide-companion
     - GrapeCity.gc-excelviewer
     - GraphQL.vscode-graphql
     - mgmcdermott.vscode-language-babel
