@@ -4,12 +4,13 @@ local function safe_require(module)
   local status, result = pcall(require, module)
 
   if not status then
-    print(string.format("Error loading module \"%s\": %s", module, result))
+    vim.notify(
+      string.format("Error loading module \"%s\": %s", module, result),
+      vim.log.levels.ERROR
+    )
 
     return nil
   end
-
-  print(string.format("Successfully loaded module \"%s\"", module))
 
   return result
 end
