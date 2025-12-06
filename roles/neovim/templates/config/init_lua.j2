@@ -164,3 +164,28 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end, 100)
   end,
 })
+
+local function get_opened_directory()
+  if vim.fn.argc() == 0 then
+    return nil
+  end
+
+  local first_arg = vim.fn.argv(0)
+
+  if vim.fn.isdirectory(first_arg) == 1 then
+    return vim.fn.fnamemodify(first_arg, ':p')
+  end
+
+  return nil
+end
+
+local opened_dir = get_opened_directory()
+
+if opened_dir then
+  vim.api.nvim_set_current_dir(opened_dir)
+end
+
+require('autocmds.hot-reload').setup {
+  watch_dir = vim.fn.getcwd(),
+  debounce = 100,
+}
