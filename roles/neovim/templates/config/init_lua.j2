@@ -62,6 +62,8 @@ require("plugins.{{ file.path | basename | regex_replace('\\.[^.]*$', '') }}")
 
 --]]
 
+local yank = require("utils.yank")
+
 vim.g.mapleader = " "
 
 local keymap = vim.keymap
@@ -126,6 +128,22 @@ keymap.set("n", "<leader>j", "<cmd>m+1<CR>", { desc = "Swap the current line wit
 keymap.set("n", "<leader>k", "<cmd>m-2<CR>", { desc = "Swap the current line with the previous line" })
 
 keymap.set("n", "<leader>a", "ggVG", { desc = "Select all in current buffer" })
+
+vim.keymap.set('n', '<leader>ya', function()
+  yank.copy_path(yank.get_buffer_absolute(), 'absolute')
+end, { desc = '[Y]ank [A]bsolute path to clipboard' })
+
+vim.keymap.set('n', '<leader>yr', function()
+  yank.copy_path(yank.get_buffer_cwd_relative(), 'relative')
+end, { desc = '[Y]ank [R]elative path to clipboard' })
+
+vim.keymap.set('v', '<leader>ya', function()
+  yank.copy_visual_with_path(yank.get_buffer_absolute(), 'absolute')
+end, { desc = '[Y]ank selection with [A]bsolute path' })
+
+vim.keymap.set('v', '<leader>yr', function()
+  yank.copy_visual_with_path(yank.get_buffer_cwd_relative(), 'relative')
+end, { desc = '[Y]ank selection with [R]elative path' })
 
 --[[
 
