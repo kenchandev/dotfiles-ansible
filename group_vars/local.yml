@@ -38,8 +38,10 @@ homebrew:
     - rustup
     - starship
     - stripe/stripe-cli/stripe
+    - supabase/tap/supabase
     - thefuck # 😂
     - tmux
+    - uv
     - volta
     - watchman
     - wrk
