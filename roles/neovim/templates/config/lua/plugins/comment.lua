@@ -1,4 +1,4 @@
-local safe_require = require("utils").safe_require
+local safe_require = require("utils.module").safe_require
 
 local comment = safe_require("Comment")
 

@@ -1,4 +1,4 @@
-local safe_require = require("utils").safe_require
+local safe_require = require("utils.module").safe_require
 
 local mason = safe_require("mason")
 local mason_lspconfig = safe_require("mason-lspconfig")

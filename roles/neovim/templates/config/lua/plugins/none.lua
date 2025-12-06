@@ -1,4 +1,4 @@
-local safe_require = require("utils").safe_require
+local safe_require = require("utils.module").safe_require
 
 local mason_null_ls = safe_require("mason-null-ls")
 local null_ls = safe_require("null-ls")

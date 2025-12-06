@@ -1,4 +1,4 @@
-local safe_require = require("utils").safe_require
+local safe_require = require("utils.module").safe_require
 
 local formatter = safe_require("formatter")
 local defaults = safe_require("formatter.defaults")

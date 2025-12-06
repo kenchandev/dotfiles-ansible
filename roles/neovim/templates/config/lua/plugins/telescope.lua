@@ -1,4 +1,4 @@
-local safe_require = require("utils").safe_require
+local safe_require = require("utils.module").safe_require
 
 local telescope = safe_require("telescope")
 local telescope_actions = safe_require("telescope.actions")

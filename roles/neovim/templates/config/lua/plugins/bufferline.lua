@@ -1,4 +1,4 @@
-local safe_require = require("utils").safe_require
+local safe_require = require("utils.module").safe_require
 
 local bufferline = safe_require("bufferline")
 local palette = safe_require("onedark.palette")
