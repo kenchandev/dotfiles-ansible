@@ -158,10 +158,14 @@ end, { desc = '[Y]ank selection with [R]elative path' })
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    -- Open Telescope on startup.
-    vim.defer_fn(function()
-      require('telescope.builtin').find_files()
-    end, 100)
+    local bufname = vim.api.nvim_buf_get_name(0)
+    local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+
+    if bufname == "" or vim.fn.isdirectory(bufname) == 1 or buftype ~= "" then
+      vim.defer_fn(function()
+        require("telescope.builtin").find_files()
+      end, 100)
+    end
   end,
 })
 
