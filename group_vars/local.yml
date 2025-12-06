@@ -54,7 +54,6 @@ homebrew:
     - blender
     - claude
     - claude-code
-    - codex
     - cursor
     - discord
     - dropbox
@@ -173,7 +172,6 @@ vscode:
     - mgmcdermott.vscode-language-babel
     - mikestead.dotenv
     - oouo-diogo-perdigao.docthis
-    - openai.chatgpt
     - rust-lang.rust-analyzer
     - samuelcolvin.jinjahtml
     - serayuzgur.crates
