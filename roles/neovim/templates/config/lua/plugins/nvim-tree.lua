@@ -28,6 +28,12 @@ if nvim_tree then
           enable = false
         }
       }
+    },
+    filters = {
+      git_ignored = false,
+      custom = {
+        "^.git$"
+      }
     }
   })
 
