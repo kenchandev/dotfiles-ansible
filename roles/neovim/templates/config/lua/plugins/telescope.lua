@@ -14,11 +14,10 @@ if telescope and telescope_actions then
           ["<C-j>"] = telescope_actions.move_selection_next,
           ["<C-q>"] = telescope_actions.send_selected_to_qflist + telescope_actions.open_qflist
         }
-      }
-    },
-    pickers = {
-      find_files = {
-        hidden = true
+      },
+      file_ignore_patterns = {
+        "%.git/",
+        "venv/"
       }
     }
   })
