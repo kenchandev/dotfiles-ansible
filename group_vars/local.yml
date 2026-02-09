@@ -54,7 +54,6 @@ homebrew:
     - blender
     - claude
     - claude-code
-    - cursor
     - discord
     - dropbox
     - figma
