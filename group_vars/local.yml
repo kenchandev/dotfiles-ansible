@@ -29,6 +29,7 @@ homebrew:
     - git-lfs
     - gnu-sed
     - kubernetes-cli
+    - libpq
     - make
     - mas
     - neovim
