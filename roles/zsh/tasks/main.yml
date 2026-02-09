@@ -7,7 +7,7 @@
     - zsh
 
 - name: Install Oh My Zsh.
-  ansible.builtin.command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  ansible.builtin.shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   when: oh_my_zsh_stats.stat.exists == False
   tags:
     - install
