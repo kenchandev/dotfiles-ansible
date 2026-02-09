@@ -57,7 +57,7 @@ install_python() {
   install_uv
 
   if ! [[ -f $HOME/.local/bin/python$PYTHON_LATEST_STABLE_VERSION ]]; then
-    uv python install $PYTHON_LATEST_STABLE_VERSION
+    $HOMEBREW_BIN_DIR/uv python install $PYTHON_LATEST_STABLE_VERSION
   else
     printf "[ \033[00;34m...\033[0m ] Latest Python version already installed.\n"
     return
