@@ -14,7 +14,7 @@ homebrew:
   packages:
     - asciinema
     - awscli
-    - certbot
+    - certbot # SSL certificates. For production.
     - cloudflared
     - dagger/tap/container-use
     - diff-so-fancy
@@ -32,7 +32,9 @@ homebrew:
     - libpq
     - make
     - mas
+    - mkcert # SSL certificates. To support HTTPS for local development.
     - neovim
+    - nss # For Firefox. Paired with mkcert to support HTTPS for local development.
     - oven-sh/bun/bun
     - pnpm
     - protobuf
