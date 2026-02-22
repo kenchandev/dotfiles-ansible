@@ -65,6 +65,7 @@ homebrew:
     - google-chrome
     - iina
     - kitty
+    - ngrok
     - notion
     - orbstack
     - postman
